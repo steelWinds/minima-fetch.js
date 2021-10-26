@@ -1,0 +1,21 @@
+{
+  "plugins": {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-nested-props": {},
+    "postcss-simple-vars": {},
+    "postcss-nested": {},
+    "tailwindcss": {},
+    "autoprefixer": {},
+    "cssnano": {
+      "preset": [
+        "default",
+        {
+          "discardComments": {
+            "removeAll": true
+          }
+        }
+      ]
+    }
+  }
+}
