@@ -25,4 +25,4 @@ License of project located in LICENSE file
 
 # Authors 
 
-@steelWinds
+[Kirill](http://github.com/steelWinds)
