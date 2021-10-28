@@ -1,10 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import { cwd } from 'process';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { VueLoaderPlugin } from 'vue-loader';
 import getWebpackLogger from 'webpack-log'; 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ESlintWebpackPlugin from 'eslint-webpack-plugin';
 
 const log = getWebpackLogger(
@@ -38,7 +35,7 @@ const progressHandler = () => {
 
 let config = {
     entry: {
-        main: path.resolve(__dirname, './src/main.js')
+        main: path.resolve(__dirname, './src/minima.js')
     },
 
     stats: 'errors-warnings',
@@ -91,15 +88,14 @@ let config = {
     plugins: [
         new webpack.ProgressPlugin(progressHandler()),
         new ESlintWebpackPlugin(),
-        new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, './public/index.html'),
-            filename: path.resolve(__dirname, './dist/index.html')
-        })
     ],
 
+    optimization: {
+        minimize: false
+    },
+
     output: {
-        path: path.resolve(__dirname, './dist/js'),
+        path: path.resolve(__dirname, './dist/'),
         publicPath: '/dist/',
         filename: '[name].build.js',
     }
