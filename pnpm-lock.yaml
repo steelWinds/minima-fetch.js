@@ -9,7 +9,10 @@ specifiers:
   core-js: ^3.18.2
   eslint: ^8.0.1
   eslint-plugin-vue: ^7.19.1
+  eslint-visitor-keys: ^2.1.0
   eslint-webpack-plugin: ^3.0.1
+  mime-types: ^2.1.33
+  multicast-dns-service-types: ^1.1.0
   regenerator-runtime: ^0.13.9
   webpack: ^5.58.1
   webpack-cli: ^4.9.0
@@ -30,7 +33,10 @@ devDependencies:
   babel-loader: 8.2.2_06f14ccae467bb4e5760da4005132afd
   eslint: 8.0.1
   eslint-plugin-vue: 7.19.1_eslint@8.0.1
+  eslint-visitor-keys: 2.1.0
   eslint-webpack-plugin: 3.0.1_eslint@8.0.1+webpack@5.58.1
+  mime-types: 2.1.33
+  multicast-dns-service-types: 1.1.0
   webpack: 5.58.1_webpack-cli@4.9.0
   webpack-cli: 4.9.0_86bf87444b8b1dfffda7e241caf93573
   webpack-dev-server: 4.3.1_webpack-cli@4.9.0+webpack@5.58.1

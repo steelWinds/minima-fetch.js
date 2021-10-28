@@ -1,6 +1,9 @@
 {
+  "name": "minima.js",
   "type": "module",
   "version": "1.0.0",
+  "description": "Simple fetch lib",
+  "main": "src/minima.js",
   "scripts": {
     "serve": "webpack --mode=development && webpack serve --mode=development --hot",
     "build": "webpack --mode=production",
@@ -8,6 +11,9 @@
     "lint-fix": "eslint **/*.js **/*.vue **/*.ts **/*.tsx **/*.jsx --fix --no-error-on-unmatched-pattern"
   },
   "devDependencies": {
+    "eslint-visitor-keys": "^2.1.0",
+    "mime-types": "^2.1.33",
+    "multicast-dns-service-types": "^1.1.0",
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
@@ -25,5 +31,15 @@
     "core-js": "^3.18.2",
     "regenerator-runtime": "^0.13.9",
     "whatwg-fetch": "^3.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steelWinds/minima.js.git"
+  },
+  "author": "steelwinds",
+  "license": "SEE LICENSE IN LICENSE FILE",
+  "bugs": {
+    "url": "https://github.com/steelWinds/minima.js/issues"
+  },
+  "homepage": "https://github.com/steelWinds/minima.js#readme"
 }
