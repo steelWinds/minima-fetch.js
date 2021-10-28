@@ -18,7 +18,7 @@ This library already contains the necessary polyfill for ```fetch```. As well as
 - ```headers (Object) (Optional)``` - set headers of request
 - ```body (Object) (Optional)``` - set body of request
 - ```json, text (Boolean) (Optional)``` - set transformation type
-- ```readStream (Boolean)``` - get ReadableStreat.getReader()
+- ```readStream (Boolean)``` - get ReadableStream.getReader()
 
 # License
 
