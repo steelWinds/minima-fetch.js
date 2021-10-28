@@ -35,7 +35,7 @@ const progressHandler = () => {
 
 let config = {
     entry: {
-        main: path.resolve(__dirname, './src/minima.js')
+        'minima': path.resolve(__dirname, './src/minima.js')
     },
 
     stats: 'errors-warnings',

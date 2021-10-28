@@ -1415,7 +1415,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var NetworkError_NetworkError = /*#__PURE__*/function (_Error) {
+var NetworkError = /*#__PURE__*/function (_Error) {
   _inherits(NetworkError, _Error);
 
   var _super = _createSuper(NetworkError);
@@ -1425,9 +1425,9 @@ var NetworkError_NetworkError = /*#__PURE__*/function (_Error) {
 
     _classCallCheck(this, NetworkError);
 
-    _this = _super.call(this, message !== null && message !== void 0 ? message : 'Error');
+    _this = _super.call(this, message || 'Error');
     _this.name = _this.constructor.name;
-    _this.status = status !== null && status !== void 0 ? status : 'Status unknow';
+    _this.status = status || 'Status unknow';
     return _this;
   }
 
@@ -1458,8 +1458,11 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
         json,
         _ref2$text,
         text,
+        _ref2$readStream,
+        readStream,
         requestObject,
         networkResponse,
+        transformResponse,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -1467,7 +1470,7 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
         switch (_context.prev = _context.next) {
           case 0:
             url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
-            _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, _ref2$method = _ref2.method, method = _ref2$method === void 0 ? 'GET' : _ref2$method, _ref2$headers = _ref2.headers, headers = _ref2$headers === void 0 ? {} : _ref2$headers, _ref2$body = _ref2.body, body = _ref2$body === void 0 ? {} : _ref2$body, _ref2$json = _ref2.json, json = _ref2$json === void 0 ? false : _ref2$json, _ref2$text = _ref2.text, text = _ref2$text === void 0 ? false : _ref2$text;
+            _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, _ref2$method = _ref2.method, method = _ref2$method === void 0 ? 'GET' : _ref2$method, _ref2$headers = _ref2.headers, headers = _ref2$headers === void 0 ? {} : _ref2$headers, _ref2$body = _ref2.body, body = _ref2$body === void 0 ? {} : _ref2$body, _ref2$json = _ref2.json, json = _ref2$json === void 0 ? false : _ref2$json, _ref2$text = _ref2.text, text = _ref2$text === void 0 ? false : _ref2$text, _ref2$readStream = _ref2.readStream, readStream = _ref2$readStream === void 0 ? false : _ref2$readStream;
             requestObject = {
               method: method,
               headers: headers
@@ -1478,43 +1481,82 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
             }
 
             networkResponse = null;
-            _context.prev = 5;
-            _context.next = 8;
+            transformResponse = null;
+            _context.prev = 6;
+            _context.next = 9;
             return fetch(url, requestObject);
 
-          case 8:
+          case 9:
             networkResponse = _context.sent;
-            _context.next = 14;
+            _context.next = 15;
             break;
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](5);
-            throw new NetworkError('Request is failed');
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](6);
+            throw new Error('Request is failed');
 
-          case 14:
+          case 15:
             if (!networkResponse.ok) {
-              _context.next = 19;
+              _context.next = 36;
               break;
             }
 
-            if (json === true) {
-              networkResponse = networkResponse.json();
-            } else if (text === true) {
-              networkResponse = networkResponse.text();
+            if (!(json === true)) {
+              _context.next = 22;
+              break;
             }
 
-            return _context.abrupt("return", networkResponse);
+            _context.next = 19;
+            return networkResponse.json();
 
           case 19:
-            throw new NetworkError('Request is failed', networkResponse.status);
+            transformResponse = _context.sent;
+            _context.next = 33;
+            break;
 
-          case 20:
+          case 22:
+            if (!(text === true)) {
+              _context.next = 28;
+              break;
+            }
+
+            _context.next = 25;
+            return networkResponse.text();
+
+          case 25:
+            transformResponse = _context.sent;
+            _context.next = 33;
+            break;
+
+          case 28:
+            if (!(readStream === true)) {
+              _context.next = 32;
+              break;
+            }
+
+            transformResponse = networkResponse.body.getReader();
+            _context.next = 33;
+            break;
+
+          case 32:
+            return _context.abrupt("return", networkResponse);
+
+          case 33:
+            return _context.abrupt("return", {
+              response: networkResponse,
+              data: transformResponse
+            });
+
+          case 36:
+            throw new Error('Request is failed', networkResponse.status);
+
+          case 37:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[5, 11]]);
+    }, _callee, null, [[6, 12]]);
   }));
 
   return function minima() {
