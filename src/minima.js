@@ -9,7 +9,8 @@ let minima = async (
         headers = {},
         body = {},
         json = false,
-        text = false
+        text = false,
+        readStream = false
     } = {}
 ) => {
 
@@ -23,23 +24,31 @@ let minima = async (
     }
 
     let networkResponse = null;
+    let transformResponse = null;
 
     try {
         networkResponse = await fetch(url, requestObject);
     } catch(err) {
-        throw new NetworkError('Request is failed');
+        throw new Error('Request is failed');
     }
 
     if (networkResponse.ok) {
         if (json === true) {
-            networkResponse = networkResponse.json();
+            transformResponse = await networkResponse.json();
         } else if (text === true) {
-            networkResponse = networkResponse.text();
+            transformResponse = await networkResponse.text();
+        } else if (readStream === true) {
+            transformResponse = networkResponse.body.getReader();
+        } else {
+            return networkResponse;
         }
 
-        return networkResponse;
+        return {
+            response: networkResponse,
+            data: transformResponse
+        };
     } else {
-        throw new NetworkError('Request is failed', networkResponse.status);
+        throw new Error('Request is failed', networkResponse.status);
     }
 };
 
