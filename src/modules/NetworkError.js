@@ -1,9 +1,9 @@
 class NetworkError extends Error {
     constructor(message, status) {
-        super(message ?? 'Error');
+        super(message || 'Error');
 
         this.name = this.constructor.name;
-        this.status = status ?? 'Status unknow';
+        this.status = status || 'Status unknow';
     }
 }
 
