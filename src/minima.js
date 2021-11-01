@@ -29,7 +29,7 @@ let minima = async (
     try {
         networkResponse = await fetch(url, requestObject);
     } catch(err) {
-        throw new Error('Request is failed');
+        throw new NetworkError('Request is failed');
     }
 
     if (networkResponse.ok) {
@@ -48,7 +48,14 @@ let minima = async (
             data: transformResponse
         };
     } else {
-        throw new Error('Request is failed', networkResponse.status);
+        let errorMessages = await networkResponse.json();
+        let message = 'Request is failed'; 
+
+        if (errorType in errorMessages) {
+            message = errorMessages[errorType][0];
+        }
+
+        throw new NetworkError(message, networkResponse.status);
     }
 };
 
