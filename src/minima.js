@@ -10,7 +10,8 @@ let minima = async (
         body = {},
         json = false,
         text = false,
-        readStream = false
+        readStream = false,
+        errorType = []
     } = {}
 ) => {
 
