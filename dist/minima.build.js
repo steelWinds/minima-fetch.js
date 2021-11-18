@@ -1415,7 +1415,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var NetworkError = /*#__PURE__*/function (_Error) {
+var NetworkError_NetworkError = /*#__PURE__*/function (_Error) {
   _inherits(NetworkError, _Error);
 
   var _super = _createSuper(NetworkError);
@@ -1436,6 +1436,12 @@ var NetworkError = /*#__PURE__*/function (_Error) {
 
 
 ;// CONCATENATED MODULE: ./src/minima.js
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1460,9 +1466,16 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
         text,
         _ref2$readStream,
         readStream,
+        _ref2$errorTypes,
+        errorTypes,
         requestObject,
         networkResponse,
         transformResponse,
+        errorMessages,
+        message,
+        _iterator,
+        _step,
+        type,
         _args = arguments;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -1470,7 +1483,7 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
         switch (_context.prev = _context.next) {
           case 0:
             url = _args.length > 0 && _args[0] !== undefined ? _args[0] : '';
-            _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, _ref2$method = _ref2.method, method = _ref2$method === void 0 ? 'GET' : _ref2$method, _ref2$headers = _ref2.headers, headers = _ref2$headers === void 0 ? {} : _ref2$headers, _ref2$body = _ref2.body, body = _ref2$body === void 0 ? {} : _ref2$body, _ref2$json = _ref2.json, json = _ref2$json === void 0 ? false : _ref2$json, _ref2$text = _ref2.text, text = _ref2$text === void 0 ? false : _ref2$text, _ref2$readStream = _ref2.readStream, readStream = _ref2$readStream === void 0 ? false : _ref2$readStream;
+            _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, _ref2$method = _ref2.method, method = _ref2$method === void 0 ? 'GET' : _ref2$method, _ref2$headers = _ref2.headers, headers = _ref2$headers === void 0 ? {} : _ref2$headers, _ref2$body = _ref2.body, body = _ref2$body === void 0 ? {} : _ref2$body, _ref2$json = _ref2.json, json = _ref2$json === void 0 ? false : _ref2$json, _ref2$text = _ref2.text, text = _ref2$text === void 0 ? false : _ref2$text, _ref2$readStream = _ref2.readStream, readStream = _ref2$readStream === void 0 ? false : _ref2$readStream, _ref2$errorTypes = _ref2.errorTypes, errorTypes = _ref2$errorTypes === void 0 ? [] : _ref2$errorTypes;
             requestObject = {
               method: method,
               headers: headers
@@ -1494,7 +1507,7 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
           case 12:
             _context.prev = 12;
             _context.t0 = _context["catch"](6);
-            throw new Error('Request is failed');
+            throw new NetworkError('Request is failed');
 
           case 15:
             if (!networkResponse.ok) {
@@ -1549,14 +1562,47 @@ var minima = /*#__PURE__*/(/* unused pure expression or super */ null && (functi
             });
 
           case 36:
-            throw new Error('Request is failed', networkResponse.status);
+            errorMessages = null;
+            _context.prev = 37;
+            _context.next = 40;
+            return networkResponse.json();
 
-          case 37:
+          case 40:
+            errorMessages = _context.sent;
+            _context.next = 46;
+            break;
+
+          case 43:
+            _context.prev = 43;
+            _context.t1 = _context["catch"](37);
+            throw new NetworkError('Response is incorrect', _context.t1.status);
+
+          case 46:
+            message = 'Request is failed';
+            _iterator = _createForOfIteratorHelper(errorTypes);
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                type = _step.value;
+
+                if (errorMessages[type]) {
+                  message = errorMessages[type][0];
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            throw new NetworkError(message, networkResponse.status);
+
+          case 50:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[6, 12]]);
+    }, _callee, null, [[6, 12], [37, 43]]);
   }));
 
   return function minima() {
