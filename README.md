@@ -1,12 +1,12 @@
-# minima.js
+# minima-fetch.js
 
 It simple lib for simplification work with ```fetch```
 
 # Installing 
 
 1. Download ```node.js```
-2. Install this with **npm**: ```npm i minima.js --save``` or pnpm ```pnpm add minima.js```
-3. Import in your project with import **ES6**: ```import { minima } from 'minima.js'```
+2. Install this with **npm**: ```npm i minima-fetch.js --save``` or pnpm ```pnpm add minima-fetch.js```
+3. Import in your project with import **ES6**: ```import { minima } from 'minima-fetch.js'```
 
 # Getting Started
 
