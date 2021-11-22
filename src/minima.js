@@ -56,7 +56,7 @@ let minima = async (
             throw new NetworkError('Response is incorrect', err.status);
         }
         
-        throw new NetworkError(message, networkResponse.status, errors);
+        throw new NetworkError('Request is incorrect, server error', networkResponse.status, errors);
     }
 };
 
