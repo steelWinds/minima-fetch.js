@@ -10,8 +10,7 @@ let minima = async (
         body = {},
         json = false,
         text = false,
-        readStream = false,
-        errorTypes = []
+        readStream = false
     } = {}
 ) => {
 
@@ -49,23 +48,15 @@ let minima = async (
             data: transformResponse
         };
     } else {
-        let errorMessages = null;
+        let errors = {};
 
         try {
-            errorMessages = await networkResponse.json();
+            errors = await networkResponse.json();
         } catch(err) {
             throw new NetworkError('Response is incorrect', err.status);
         }
-
-        let message = 'Request is failed'; 
-
-        for (let type of errorTypes) {
-            if (errorMessages[type]) {
-                message = errorMessages[type][0];
-            }
-        }
         
-        throw new NetworkError(message, networkResponse.status);
+        throw new NetworkError(message, networkResponse.status, errors);
     }
 };
 
