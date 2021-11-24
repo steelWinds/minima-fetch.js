@@ -20,6 +20,21 @@ This library already contains the necessary polyfill for ```fetch```. As well as
 - ```json, text (Boolean) (Optional)``` - set transformation type
 - ```readStream (Boolean)``` - get ReadableStream.getReader()
 
+# Returns
+
+## Return valid object 
+
+- ***if you set transform response object*** - { response: ```networkResponse```, data: ```your transform data``` }
+- ***if you not set transform data*** - ```Object (networkResponse)```
+
+## Return error object 
+
+- ***fetch require error*** - { message: 'Request is failed' }
+- ***incorrect response status*** - {
+  'Request is incorrect, server error', 
+  networkResponse.status, 
+  Object (errors)}
+
 # License
 
 License of project located in LICENSE file
